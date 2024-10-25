@@ -1,0 +1,108 @@
+.namecard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    width: 80%;
+    overflow: hidden;
+}
+
+.slider-content {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: calc(100% * (groupedMentors.length));
+}
+
+.slide {
+    display: flex;
+    flex: 0 0 100%; /* Mỗi slide sẽ chiếm toàn bộ chiều rộng */
+}
+
+.container {
+    flex: 0 0 calc(25% - 20px); /* Mỗi mentor chiếm 20% chiều rộng của slide */
+    height: 470px;
+    margin: 10px; /* Khoảng cách giữa các thẻ */
+    border: 2px solid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    transition: 0.6s ease;
+}
+
+.image-section {
+    height: 100%;
+    width: 100%;
+    background: #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.6s ease;
+}
+
+.container:hover .image-section {
+    top: 5%;
+    height: 280px;
+    width: 280px;
+    border-radius: 50%;
+}
+
+img {
+    width: 250px;
+    border-radius: 50%;
+    background: #021a2f;
+}
+
+.text-content {
+    text-align: center;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.container:hover .text-content {
+    opacity: 1;
+    transition-delay: 0.5s;
+}
+
+.btn {
+    height: 35px;
+    width: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    background: #222;
+    color: #0cf;
+    border: 2px solid #0cf;
+    cursor: pointer;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background: #0cf;
+    color: #222;
+    box-shadow: 0 0 10px #0cf;
+}
