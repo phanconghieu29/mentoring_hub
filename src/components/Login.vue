@@ -42,7 +42,7 @@
           
           <div class="w-full text-center p-t-55">
             <span class="txt2">Bạn chưa có tài khoản?</span>
-            <a href="#" class="txt2 bo1">Đăng ký ngay</a>
+            <a href="/register" class="txt2 bo1">Đăng ký ngay</a>
             <br><a href="#" class="txt2 bo1 m-l-5">Quên mật khẩu?</a>
           </div>
         </form>

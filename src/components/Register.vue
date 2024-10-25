@@ -5,54 +5,28 @@
       <form @submit.prevent="handleSubmit" class="form">
         <div class="input-box">
           <label>Họ và tên</label>
-          <input
-            type="text"
-            v-model="fullName"
-            placeholder="Nhập họ và tên"
-            required
-          />
+          <input type="text" v-model="fullName" placeholder="Nhập họ và tên" required />
         </div>
         <div class="input-box">
           <label>Email</label>
-          <input
-            type="text"
-            v-model="email"
-            placeholder="Nhập địa chỉ email"
-            required
-            @input="validateEmail"
-          />
+          <input type="text" v-model="email" placeholder="Nhập địa chỉ email" required @input="validateEmail" />
           <span v-if="errorMessage" class="error-message">{{
             errorMessage
           }}</span>
         </div>
         <div class="input-box">
           <label>Mật khẩu</label>
-          <input
-            type="password"
-            v-model="password"
-            placeholder="Nhập mật khẩu tại đây"
-            required
-          />
+          <input type="password" v-model="password" placeholder="Nhập mật khẩu tại đây" required />
         </div>
         <div class="input-box">
           <label>Xác minh mật khẩu</label>
-          <input
-            type="password"
-            v-model="confirmPassword"
-            placeholder="Xác minh mật khẩu"
-            required
-          />
+          <input type="password" v-model="confirmPassword" placeholder="Xác minh mật khẩu" required />
         </div>
         <div class="column">
           <div class="input-box">
             <label>Số điện thoại</label>
-            <input
-              type="text"
-              v-model="phoneNumber"
-              placeholder="Nhập số điện thoại"
-              required
-              @input="validatePhoneNumber"
-            />
+            <input type="text" v-model="phoneNumber" placeholder="Nhập số điện thoại" required
+              @input="validatePhoneNumber" />
             <span v-if="errorMessage" class="error-message">{{
               errorMessage
             }}</span>
@@ -66,38 +40,20 @@
           <h3>Giới tính</h3>
           <div class="gender-option">
             <div class="gender">
-              <input
-                type="radio"
-                id="check-male"
-                name="gender"
-                value="male"
-                v-model="gender"
-              />
+              <input type="radio" id="check-male" name="gender" value="male" v-model="gender" />
               <label for="check-male">Nam</label>
             </div>
             <div class="gender">
-              <input
-                type="radio"
-                id="check-female"
-                name="gender"
-                value="female"
-                v-model="gender"
-              />
+              <input type="radio" id="check-female" name="gender" value="female" v-model="gender" />
               <label for="check-female">Nữ</label>
             </div>
             <div class="gender">
-              <input
-                type="radio"
-                id="check-other"
-                name="gender"
-                value="other"
-                v-model="gender"
-              />
+              <input type="radio" id="check-other" name="gender" value="other" v-model="gender" />
               <label for="check-other">Khác</label>
             </div>
           </div>
         </div>
-  
+
         <div class="input-box address">
           <label>Địa chỉ</label>
           <!-- Select Tỉnh/Thành Phố -->
@@ -105,11 +61,7 @@
             <label for="city">Chọn Tỉnh/Thành Phố</label>
             <select v-model="selectedCity" id="city" @change="onCityChange">
               <option hidden>Chọn Tỉnh/Thành Phố</option>
-              <option
-                v-for="(city, index) in locations"
-                :key="index"
-                :value="city.FullName"
-              >
+              <option v-for="(city, index) in locations" :key="index" :value="city.FullName">
                 {{ city.FullName }}
               </option>
             </select>
@@ -117,17 +69,9 @@
           <!-- Select Quận/Huyện -->
           <div class="select-box" v-if="selectedCity">
             <label for="district">Chọn Quận/Huyện</label>
-            <select
-              v-model="selectedDistrict"
-              id="district"
-              @change="onDistrictChange"
-            >
+            <select v-model="selectedDistrict" id="district" @change="onDistrictChange">
               <option hidden>Chọn Quận/Huyện</option>
-              <option
-                v-for="(district, index) in districts"
-                :key="index"
-                :value="district.FullName"
-              >
+              <option v-for="(district, index) in districts" :key="index" :value="district.FullName">
                 {{ district.FullName }}
               </option>
             </select>
@@ -137,11 +81,7 @@
             <label for="ward">Chọn Phường/Xã</label>
             <select v-model="selectedWard" id="ward">
               <option hidden>Chọn Phường/Xã</option>
-              <option
-                v-for="(ward, index) in wards"
-                :key="index"
-                :value="ward.FullName"
-              >
+              <option v-for="(ward, index) in wards" :key="index" :value="ward.FullName">
                 {{ ward.FullName }}
               </option>
             </select>
@@ -149,7 +89,7 @@
         </div>
         <button type="submit">Đăng ký</button>
       </form>
-  
+
       <div v-if="successMessage" class="success-message">
         {{ successMessage }}
       </div>
@@ -284,6 +224,7 @@ export default {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 body {
   min-height: 100vh;
   display: flex;
@@ -293,12 +234,13 @@ body {
   background: rgb(130, 106, 251);
 }
 
-.centered-container{
+.centered-container {
   width: 99vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .container {
   position: relative;
   max-width: 700px;
@@ -309,22 +251,27 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
+
 .container header {
   font-size: 1.5rem;
   color: #333;
   font-weight: 500;
   text-align: center;
 }
+
 .container .form {
   margin-top: 30px;
 }
+
 .form .input-box {
   width: 100%;
   margin-top: 20px;
 }
+
 .input-box label {
   color: #333;
 }
+
 .form :where(.input-box input, .select-box) {
   position: relative;
   height: 50px;
@@ -337,51 +284,63 @@ body {
   border-radius: 6px;
   padding: 0 15px;
 }
+
 .input-box input:focus {
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
+
 .form .column {
   display: flex;
   column-gap: 15px;
 }
+
 .form .gender-box {
   margin-top: 20px;
 }
+
 .gender-box h3 {
   color: #333;
   font-size: 1rem;
   font-weight: 400;
   margin-bottom: 8px;
 }
+
 .form :where(.gender-option, .gender) {
   display: flex;
   align-items: center;
   column-gap: 50px;
   flex-wrap: wrap;
 }
+
 .form .gender {
   column-gap: 5px;
 }
+
 .gender input {
   accent-color: rgb(130, 106, 251);
 }
+
 .form :where(.gender input, .gender label) {
   cursor: pointer;
 }
+
 .gender label {
   color: #707070;
 }
+
 .address :where(input, .select-box) {
   margin-top: 15px;
 }
+
 .select-box select {
-  height: 100%;
+  height: 24px;
   width: 100%;
   outline: none;
   border: none;
   color: #707070;
   font-size: 1rem;
 }
+
 .form button {
   height: 55px;
   width: 100%;
@@ -394,14 +353,17 @@ body {
   transition: all 0.2s ease;
   background: rgb(130, 106, 251);
 }
+
 .form button:hover {
   background: rgb(88, 56, 250);
 }
+
 /*Responsive*/
 @media screen and (max-width: 500px) {
   .form .column {
     flex-wrap: wrap;
   }
+
   .form :where(.gender-option, .gender) {
     row-gap: 15px;
   }

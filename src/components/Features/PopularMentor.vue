@@ -25,8 +25,8 @@
                 <div class="flip-card-back">
                   <p>{{ mentor.description }}</p>
                   <div class="button-container">
-                    <button class="btn-infor btn">Thông tin</button>
-                    <button class="btn" @click="connectMentor(mentor)">Kết nối</button>
+                    <button class="btn btn-infor">Thông tin</button>
+                    <button class="btn btn-infor" @click="connectMentor(mentor)">Kết nối</button>
                   </div>
 
                 </div>
@@ -261,9 +261,9 @@ img {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+  gap: 10px;
 }
 
-.btn-infor,
 .btn {
   flex: 1;
   /* margin-right: 10px; */
@@ -285,7 +285,8 @@ img {
 
 .btn-infor {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 0px 20px;
+  font-size: 12px;
 }
 
 .modal-overlay {
