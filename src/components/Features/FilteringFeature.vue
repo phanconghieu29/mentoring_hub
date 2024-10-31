@@ -12,7 +12,7 @@
         <div class="tags">
           <span v-for="tag in tab1Tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
-        <button @click="showPopup('tab1')" class="btn-view-more">
+        <button @click="showTab1Popup" class="btn-view-more">
           Xem thêm chủ đề
         </button>
       </div>
@@ -30,23 +30,45 @@
         <div class="tags">
           <span v-for="tag in tab2Tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
-        <button @click="showPopup('tab2')" class="btn-view-more">
+        <button @click="showTab2Popup" class="btn-view-more">
           Xem thêm lĩnh vực mentoring
         </button>
       </div>
     </div>
-
-    <!-- Popup Modal -->
-    <div v-if="isPopupVisible" class="modal-popup">
+    <!-- Popup Modal for Tab 1 -->
+    <div v-if="isTab1PopupVisible" class="modal-popup">
       <div class="modal-content-popup">
-        <button @click="closePopup" class="close-btn">X</button>
-        <h3>{{ popupTitle }}</h3>
+        <button @click="closeTab1Popup" class="close-btn">X</button>
+        <h3>{{ tab1PopupTitle }}</h3>
         <div class="tags">
-          <span v-for="tag in fullTags" :key="tag" class="tag">{{ tag }}</span>
+          <span v-for="tag in fullTab1Tags" :key="tag" class="tag">{{
+            tag
+          }}</span>
         </div>
       </div>
-      <h5 @click="navigateToListDocuments" style="cursor: pointer; color: blue">
+      <h5 style="cursor: pointer; color: blue">
+              <router-link to="/list-documents" class="btn btn-primary mt-4">
         Xem thêm
+      </router-link>
+      </h5>
+    </div>
+
+    <!-- Popup Modal for Tab 2 -->
+    <div v-if="isTab2PopupVisible" class="modal-popup">
+      <div class="modal-content-popup">
+        <button @click="closeTab2Popup" class="close-btn">X</button>
+        <h3>{{ tab2PopupTitle }}</h3>
+        <div class="tags">
+          <span v-for="tag in fullTab2Tags" :key="tag" class="tag">{{
+            tag
+          }}</span>
+        </div>
+      </div>
+      <!-- Điều hướng đến trang Login khi click vào 'Xem thêm' -->
+      <h5 style="cursor: pointer; color: blue">
+        <router-link to="/login" class="btn btn-primary mt-4">
+          Xem thêm danh sách mentors
+        </router-link>
       </h5>
     </div>
   </div>
@@ -54,7 +76,6 @@
 
 <script>
 import catalogies from "../../assets/data/catalogies.json";
-// import ListDocuments from "../Pages/ListDocuments.vue";
 export default {
   data() {
     return {
@@ -65,32 +86,38 @@ export default {
       tab2Tags: catalogies.tabs
         .find((tab) => tab.tabId === 2)
         .tags.slice(0, 20),
-      isPopupVisible: false,
-      fullTags: [],
-      popupTitle: "",
+      isTab1PopupVisible: false,
+      isTab2PopupVisible: false,
+      fullTab1Tags: [],
+      fullTab2Tags: [],
+      tab1PopupTitle: "",
+      tab2PopupTitle: "",
     };
   },
   methods: {
-    showPopup(tab) {
-      if (tab === "tab1") {
-        this.fullTags = catalogies.tabs.find((tab) => tab.tabId === 1).tags;
-        this.popupTitle = "Tất cả chủ đề";
-      } else if (tab === "tab2") {
-        this.fullTags = catalogies.tabs.find((tab) => tab.tabId === 2).tags;
-        this.popupTitle = "Tất cả lĩnh vực mentoring";
-      }
-      this.isPopupVisible = true;
+    showTab1Popup() {
+      this.fullTab1Tags = catalogies.tabs.find((tab) => tab.tabId === 1).tags;
+      this.tab1PopupTitle = "Tất cả chủ đề";
+      this.isTab1PopupVisible = true;
       document.body.style.overflow = "hidden";
     },
-    closePopup() {
-      this.isPopupVisible = false;
-      this.fullTags = [];
-      this.popupTitle = "";
+    closeTab1Popup() {
+      this.isTab1PopupVisible = false;
+      this.fullTab1Tags = [];
+      this.tab1PopupTitle = "";
       document.body.style.overflow = "";
     },
-    navigateToListDocuments() {
-      this.closePopup(); // đóng popup trước khi điều hướng
-      this.$router.push({ name: "ListDocuments" });
+    showTab2Popup() {
+      this.fullTab2Tags = catalogies.tabs.find((tab) => tab.tabId === 2).tags;
+      this.tab2PopupTitle = "Tất cả lĩnh vực mentoring";
+      this.isTab2PopupVisible = true;
+      document.body.style.overflow = "hidden";
+    },
+    closeTab2Popup() {
+      this.isTab2PopupVisible = false;
+      this.fullTab2Tags = [];
+      this.tab2PopupTitle = "";
+      document.body.style.overflow = "";
     },
   },
 };

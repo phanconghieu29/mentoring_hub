@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import locations from "../data/locationData.json";
+import locations from "../../src/assets/data/locationData.json";
 export default {
   name: "RegisterForm",
   data() {
