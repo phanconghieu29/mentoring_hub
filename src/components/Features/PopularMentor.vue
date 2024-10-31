@@ -8,9 +8,8 @@
       <div class="slider-wrapper">
         <div class="slider-content" :style="{ transform: `translateX(${currentIndex * -100}%)` }">
           <div class="slide" v-for="(slide, index) in groupedMentors" :key="index">
-            <div class="flip-card" v-for="mentor in slide" :key="mentor.id">
+            <!-- <div class="flip-card" v-for="mentor in slide" :key="mentor.id">
               <div class="flip-card-inner">
-                <!-- Front of the card -->
                 <div class="flip-card-front">
                   <div class="image-section">
                     <img :src="mentor.image" alt="" />
@@ -21,17 +20,16 @@
                     <span class="position">{{ mentor.position }}</span>
                   </div>
                 </div>
-                <!-- Back of the card -->
                 <div class="flip-card-back">
                   <p>{{ mentor.description }}</p>
                   <div class="button-container">
                     <button class="btn btn-infor">Thông tin</button>
                     <button class="btn btn-infor" @click="connectMentor(mentor)">Kết nối</button>
                   </div>
-
                 </div>
               </div>
-            </div>
+            </div> -->
+            <MentorCard v-for="mentor in slide" :key="mentor.id" :mentor="mentor" @connect="connectMentor" />
           </div>
         </div>
       </div>
@@ -54,10 +52,12 @@
 </template>
 
 <script>
+import MentorCard from "./MentorCard.vue";
 import mentorData from '../../assets/data/mentor.json';
 
 export default {
   name: "PopularMentor",
+  components: {MentorCard},
   data() {
     return {
       currentIndex: 0,
@@ -165,12 +165,22 @@ export default {
   flex: 0 0 100%;
 }
 
+/* -------------------------------------------------------------------- */
+
 .flip-card {
   background-color: transparent;
   width: calc(25% - 20px);
   height: 470px;
   perspective: 1000px;
-  /* Gives a 3D effect when flipping */
+  margin: 10px;
+}
+
+
+/* .flip-card {
+  background-color: transparent;
+  width: calc(25% - 20px);
+  height: 470px;
+  perspective: 1000px;
   margin: 10px;
 }
 
@@ -187,17 +197,14 @@ export default {
 
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
-  /* Rotates the card on hover */
 }
 
-/* Front side of the card */
 .flip-card-front,
 .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
-  /* For Safari */
   backface-visibility: hidden;
   display: flex;
   justify-content: center;
@@ -206,7 +213,6 @@ export default {
   padding: 20px;
 }
 
-/* Front side styles */
 .flip-card-front {
   background: white;
 }
@@ -232,7 +238,6 @@ img {
   font-weight: 500;
 }
 
-/* Back side styles */
 .flip-card-back {
   background-color: #222;
   color: white;
@@ -266,28 +271,22 @@ img {
 
 .btn {
   flex: 1;
-  /* margin-right: 10px; */
   margin-bottom: 20px;
-  /* font-size: 15px;  */
 }
 
 .btn-infor:last-child,
 .btn:last-child {
   margin-right: 0;
-  /* Remove margin for the last button */
 }
 
 .btn:hover {
   background: #222;
   color: #0cf;
   box-shadow: 0 0 10px #0cf;
-}
+} */
 
-.btn-infor {
-  display: inline-block;
-  padding: 0px 20px;
-  font-size: 12px;
-}
+/* -------------------------------------------------------------------- */
+
 
 .modal-overlay {
   position: fixed;
@@ -314,6 +313,12 @@ textarea {
   width: 100%;
   height: 100px;
   margin: 10px 0;
+}
+
+.btn-send {
+  background: #0cf;
+  color: white;
+  margin-bottom: 10px;
 }
 
 .btn-cancel {

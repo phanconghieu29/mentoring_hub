@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../components/Pages/Home.vue";
 import LoginForm from "../components/Login.vue";
 import RegisterForm from "../components/Register.vue";
-import ProfileMentee from "../components/Pages/ProfileMentee.vue"
+import ProfileMentee from "../components/Pages/ProfileMentee.vue";
+import Mentors from "../components/Pages/Mentors.vue";
 
 // Định nghĩa các routes của bạn
 const routes = [
@@ -20,10 +21,16 @@ const routes = [
     path: "/register",
     name: "Register",
     component: RegisterForm,
-  },  {
+  },
+  {
     path: "/profile-mentee",
     name: "Profile-mentee",
     component: ProfileMentee,
+  },
+  {
+    path: "/mentors",
+    name: "MentorList",
+    component: Mentors,
   },
 ];
 

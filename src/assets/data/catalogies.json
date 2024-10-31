@@ -1,0 +1,138 @@
+{
+  "tabs": [
+    {
+      "tabId": 1,
+      "tabName": "Tài liệu",
+      "tags": [
+        "Học thuật",
+        "Khoa học",
+        "Nghiên cứu",
+        "Toán học",
+        "Văn học",
+        "Lịch sử",
+        "Địa lý",
+        "Kỹ thuật",
+        "Y học",
+        "Sinh học",
+        "Vật lý",
+        "Hóa học",
+        "Tâm lý học",
+        "Xã hội học",
+        "Triết học",
+        "Thương mại",
+        "Kinh tế",
+        "Luật học",
+        "Khoa học máy tính",
+        "Thể dục",
+        "Thiết kế",
+        "Giáo dục",
+        "Công nghệ",
+        "Môi trường",
+        "Chính trị"
+      ]
+    },
+    {
+      "tabId": 2,
+      "tabName": "Mentor",
+      "tags": [
+        "Phát triển bản thân",
+        "Tài chính",
+        "Kỹ năng sống",
+        "Lãnh đạo",
+        "Giao tiếp",
+        "Quản lý thời gian",
+        "Đàm phán",
+        "Marketing",
+        "Kinh doanh",
+        "Khởi nghiệp",
+        "Truyền thông",
+        "Quan hệ công chúng",
+        "Tuyển dụng",
+        "Nghệ thuật",
+        "Thẩm mỹ",
+        "Nhiếp ảnh",
+        "Ngôn ngữ học",
+        "Lập trình",
+        "Phát triển phần mềm",
+        "UI/UX",
+        "Thiết kế đồ họa",
+        "Phát triển website",
+        "SEO",
+        "Viết lách",
+        "Tư duy sáng tạo"
+      ]
+    }
+  ],
+   "documents": [
+    {
+      "id": 1,
+      "bookname": "Nhan ha",
+      "authorname": "Nguyen Van A",
+      "Ngaydang": "30-10-2023",
+      "tags": "Tài chính"
+    },
+    {
+      "id": 2,
+      "bookname": "Cuoc song hien dai",
+      "authorname": "Tran Thi B",
+      "Ngaydang": "15-09-2023",
+      "tags": "Công nghệ"
+    },
+    {
+      "id": 3,
+      "bookname": "Phat trien ban than",
+      "authorname": "Le Van C",
+      "Ngaydang": "20-08-2023",
+      "tags": "Kỹ năng sống"
+    },
+    {
+      "id": 4,
+      "bookname": "Chien luoc kinh doanh",
+      "authorname": "Pham Thi D",
+      "Ngaydang": "10-07-2023",
+      "tags": "Kinh doanh"
+    },
+    {
+      "id": 5,
+      "bookname": "Lich su Viet Nam",
+      "authorname": "Nguyen Van E",
+      "Ngaydang": "22-06-2023",
+      "tags": "Lịch sử"
+    },
+    {
+      "id": 6,
+      "bookname": "Kinh te hoc vi mo",
+      "authorname": "Tran Thi F",
+      "Ngaydang": "05-05-2023",
+      "tags": "Kinh tế"
+    },
+    {
+      "id": 7,
+      "bookname": "Nghien cuu thi truong",
+      "authorname": "Le Van G",
+      "Ngaydang": "12-04-2023",
+      "tags": "Nghiên cứu thị trường"
+    },
+    {
+      "id": 8,
+      "bookname": "Ky thuat so",
+      "authorname": "Pham Thi H",
+      "Ngaydang": "28-03-2023",
+      "tags": "Kỹ thuật"
+    },
+    {
+      "id": 9,
+      "bookname": "Van hoa Viet Nam",
+      "authorname": "Nguyen Van I",
+      "Ngaydang": "15-02-2023",
+      "tags": "Văn hóa"
+    },
+    {
+      "id": 10,
+      "bookname": "Quoc phong toan dan",
+      "authorname": "Tran Thi J",
+      "Ngaydang": "01-01-2023",
+      "tags": "Quốc phòng"
+    }
+  ]
+}
