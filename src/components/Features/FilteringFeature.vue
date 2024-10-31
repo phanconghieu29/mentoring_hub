@@ -1,68 +1,97 @@
 <template>
   <div class="tabs">
+    <!-- Tab 1 - Tài liệu -->
     <div class="tab-2">
       <label for="tab2-1">Tài liệu</label>
       <input id="tab2-1" name="tabs-two" type="radio" checked="checked" />
       <div>
         <h4>Danh sách các chủ đề</h4>
-        <br>
-        <!-- <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-          consequat id velit quis vestibulum. Nam id orci eu urna mollis
-          porttitor. Nunc nisi ante, gravida at velit eu, aliquet sodales dui.
-          Sed laoreet condimentum nisi a egestas.
-          <a
-            class="documentation"
-            href="https://flkt.mx/pitaya/componentes.html#pestanias"
-            >Documentación en español</a
-          >.
-        </p> -->
-        <!-- <p>
-          Donec interdum ante ut enim consequat, quis varius nulla dapibus.
-          Vivamus mollis fermentum augue a varius. Vestibulum in sapien at
-          lectus gravida lobortis vulputate sed metus. Duis scelerisque justo et
-          maximus efficitur. Donec eu eleifend quam. Curabitur aliquet commodo
-          sapien eget vestibulum. Vestibulum ante ipsum primis in faucibus orci
-          luctus et ultrices posuere cubilia Curae; Vestibulum vel aliquet nunc,
-          finibus posuere lorem. Suspendisse consectetur volutpat est ut ornare.
-        </p> -->
+        <br />
+
         <!-- Tags for Tab 1 -->
         <div class="tags">
           <span v-for="tag in tab1Tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
+        <button @click="showPopup('tab1')" class="btn-view-more">
+          Xem thêm chủ đề
+        </button>
       </div>
     </div>
+
+    <!-- Tab 2 - Mentor -->
     <div class="tab-2">
       <label for="tab2-2">Mentor</label>
       <input id="tab2-2" name="tabs-two" type="radio" />
       <div>
         <h4>Danh sách các lĩnh vực mentoring</h4>
-        <br>
-        <!-- <p>
-          Quisque sit amet turpis leo. Maecenas sed dolor mi. Pellentesque
-          varius elit in neque ornare commodo ac non tellus. Mauris id iaculis
-          quam. Donec eu felis quam. Morbi tristique lorem eget iaculis
-          consectetur. Class aptent taciti sociosqu ad litora torquent per
-          conubia nostra, per inceptos himenaeos. Aenean at tellus eget risus
-          tempus ultrices. Nam condimentum nisi enim, scelerisque faucibus
-          lectus sodales at.
-        </p> -->
+        <br />
+
         <!-- Tags for Tab 2 -->
         <div class="tags">
           <span v-for="tag in tab2Tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
+        <button @click="showPopup('tab2')" class="btn-view-more">
+          Xem thêm lĩnh vực mentoring
+        </button>
       </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div v-if="isPopupVisible" class="modal-popup">
+      <div class="modal-content-popup">
+        <button @click="closePopup" class="close-btn">X</button>
+        <h3>{{ popupTitle }}</h3>
+        <div class="tags">
+          <span v-for="tag in fullTags" :key="tag" class="tag">{{ tag }}</span>
+        </div>
+      </div>
+      <h5 @click="navigateToListDocuments" style="cursor: pointer; color: blue">
+        Xem thêm
+      </h5>
     </div>
   </div>
 </template>
+
 <script>
+import catalogies from "../../assets/data/catalogies.json";
+// import ListDocuments from "../Pages/ListDocuments.vue";
 export default {
   data() {
     return {
-      activeTab: "1", // Initialize the active tab to Tab 1
-      tab1Tags: ["Học thuật", "Khoa học", "Nghiên cứu"], // Tags for Tab 1
-      tab2Tags: ["Phát triển bản thân", "Tài chính", "Kỹ năng sống"], // Tags for Tab 2
+      activeTab: "1",
+      tab1Tags: catalogies.tabs
+        .find((tab) => tab.tabId === 1)
+        .tags.slice(0, 20),
+      tab2Tags: catalogies.tabs
+        .find((tab) => tab.tabId === 2)
+        .tags.slice(0, 20),
+      isPopupVisible: false,
+      fullTags: [],
+      popupTitle: "",
     };
+  },
+  methods: {
+    showPopup(tab) {
+      if (tab === "tab1") {
+        this.fullTags = catalogies.tabs.find((tab) => tab.tabId === 1).tags;
+        this.popupTitle = "Tất cả chủ đề";
+      } else if (tab === "tab2") {
+        this.fullTags = catalogies.tabs.find((tab) => tab.tabId === 2).tags;
+        this.popupTitle = "Tất cả lĩnh vực mentoring";
+      }
+      this.isPopupVisible = true;
+      document.body.style.overflow = "hidden";
+    },
+    closePopup() {
+      this.isPopupVisible = false;
+      this.fullTags = [];
+      this.popupTitle = "";
+      document.body.style.overflow = "";
+    },
+    navigateToListDocuments() {
+      this.closePopup(); // đóng popup trước khi điều hướng
+      this.$router.push({ name: "ListDocuments" });
+    },
   },
 };
 </script>
@@ -80,5 +109,41 @@ export default {
   border-radius: 5px;
   margin-right: 5px;
   display: inline-block;
+}
+.modal-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  transform: translateZ(0);
+}
+
+.modal-content-popup {
+  background: transparent;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 </style>

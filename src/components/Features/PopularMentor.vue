@@ -71,15 +71,17 @@ export default {
   },
   computed: {
     groupedMentors() {
-      const groups = [];
-      for (let i = 0; i < this.mentors.length; i += 5) {
-        groups.push(this.mentors.slice(i, i + 4));
-      }
-      return groups;
-    },
-    wordCount() {
-      return this.greeting.trim() ? this.greeting.trim().split(/\s+/).length : 0; // Count words
-    },
+    const maxMentors = 10;
+    const limitedMentors = this.mentors.slice(0, maxMentors); 
+    const groups = [];
+    for (let i = 0; i < limitedMentors.length; i += 5) {
+      groups.push(limitedMentors.slice(i, i + 4));
+    }
+    return groups;
+  },
+  wordCount() {
+    return this.greeting.trim() ? this.greeting.trim().split(/\s+/).length : 0;
+  },
   },
   methods: {
     slideToNext() {
