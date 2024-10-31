@@ -3,6 +3,7 @@ import HomePage from "../components/Pages/Home.vue";
 import LoginForm from "../components/Login.vue";
 import RegisterForm from "../components/Register.vue";
 import ProfileMentee from "../components/Pages/ProfileMentee.vue";
+import Mentors from "../components/Pages/Mentors.vue";
 import ListDocuments from "@/components/Pages/ListDocuments.vue";
 import DisplayPDF from "@/components/Features/DisplayPDF.vue";
 // Định nghĩa các routes của bạn
@@ -26,6 +27,11 @@ const routes = [
     path: "/profile-mentee",
     name: "Profile-mentee",
     component: ProfileMentee,
+  },
+  {
+    path: "/mentors",
+    name: "MentorList",
+    component: Mentors,
   },
   {
     path: "/list-documents",

@@ -35,7 +35,6 @@
         </button>
       </div>
     </div>
-
     <!-- Popup Modal for Tab 1 -->
     <div v-if="isTab1PopupVisible" class="modal-popup">
       <div class="modal-content-popup">
@@ -120,13 +119,13 @@ export default {
       this.tab2PopupTitle = "";
       document.body.style.overflow = "";
     },
-
   },
 };
 </script>
 
 <style scoped>
 @import "../../assets/css/Tabs.css";
+
 .tags {
   margin-top: 10px;
 }
@@ -139,6 +138,7 @@ export default {
   margin-right: 5px;
   display: inline-block;
 }
+
 .modal-popup {
   position: fixed;
   top: 0;
