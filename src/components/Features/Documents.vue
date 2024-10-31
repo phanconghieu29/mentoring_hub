@@ -2,37 +2,36 @@
   <div class="container-fluid py-5">
     <div class="container py-5">
       <div class="text-center mb-5">
-        <h5
-          class="text-primary text-uppercase mb-3"
-          style="letter-spacing: 5px"
-        >
+        <h5 class="text-primary text-uppercase mb-3" style="letter-spacing: 5px">
           Tài liệu
         </h5>
-        <h1>Tài liệu nổi bật nhất</h1>
+        <h1>Tất cả tài liệu</h1>
       </div>
+
+      <!-- Tags for Documents -->
+      <div class="tags mb-4">
+        <span v-for="tag in tab1Tags" :key="tag" class="tag">{{ tag }}</span>
+      </div>
+      <button @click="showPopup" class="btn-view-more" style="cursor: pointer; color: blue; padding-bottom: 20px">
+        Xem thêm chủ đề
+      </button>
+
+      <!-- Document Slide -->
       <div class="row">
-        <div
-          v-for="(document, index) in displayedDocuments"
-          :key="index"
-          class="col-lg-4 col-md-6 mb-4"
-        >
+        <div v-for="(document, index) in currentDocuments" :key="index" class="col-lg-4 col-md-6 mb-4">
           <div class="rounded overflow-hidden mb-2">
             <div class="bg-secondary p-4">
               <div class="d-flex justify-content-between mb-3">
                 <small class="m-0">
                   <i class="fa fa-users text-primary mr-2"></i>
-                  {{ document.views }} Lượt đọc
+                  {{ document?.views || 0 }} Lượt đọc
                 </small>
                 <small class="m-0">
-                  <i class="far fa-clock text-primary mr-2"></i>
-                  Đăng ngày {{ document.date }}
+                  <i class="far fa-clock text-primary mr-2"></i>Đăng ngày
+                  {{ document?.date || "N/A" }}
                 </small>
               </div>
-              <img
-                class="img-fluid"
-                :src="document.img"
-                :alt="document.title"
-              />
+              <img v-if="document" class="img-fluid" :src="document.img" :alt="document.title" />
               <a class="h5" href="#" @click.prevent="openDocument(document)">
                 {{ document?.title || "Untitled" }}
               </a>
@@ -41,45 +40,96 @@
                   <h6 class="m-0">
                     <i class="fa fa-star text-primary mr-2"></i>
                   </h6>
-                  <h5 class="m-0">Tác giả {{ document.author }}</h5>
+                  <h5 class="m-0">
+                    Tác giả {{ document?.author || "Unknown" }}
+                  </h5>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <router-link to="/list-documents" class="btn btn-primary mt-4">
-        Xem thêm
-      </router-link>
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-center mt-4">
+        <button @click="prevSlide" :disabled="currentSlide === 0" class="btn btn-secondary mr-2">
+          Trước
+        </button>
+        <button @click="nextSlide" :disabled="currentSlide === totalSlides - 1" class="btn btn-primary">
+          Tiếp
+        </button>
+      </div>
+
+      <!-- Popup Modal -->
+      <div v-if="isPopupVisible" class="modal-popup">
+        <div class="modal-content-popup">
+          <button @click="closePopup" class="close-btn">X</button>
+          <h3>Tất cả chủ đề</h3>
+          <div class="tags">
+            <span v-for="tag in fullTags" :key="tag" class="tag">{{ tag }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import documents from "../../assets/data/documents.json";
+import catalogies from "../../assets/data/catalogies.json";
 
 export default {
   name: "PopularDocument",
   data() {
     return {
       allDocuments: documents,
+      currentSlide: 0,
+      slideSize: 12, // Number of documents per slide
+      tab1Tags: catalogies.tabs.find((tab) => tab.tabId === 1).tags.slice(0, 20),
+      isPopupVisible: false,
+      fullTags: catalogies.tabs.find((tab) => tab.tabId === 1).tags,
     };
   },
   computed: {
-    displayedDocuments() {
-      return this.allDocuments.slice(0, 6); // Show only the first 6 documents
+    totalSlides() {
+      // Calculate total number of slides based on slide size
+      return Math.ceil(this.allDocuments.length / this.slideSize);
+    },
+    currentDocuments() {
+      // Get documents for the current slide
+      const start = this.currentSlide * this.slideSize;
+      return this.allDocuments.slice(start, start + this.slideSize);
     },
   },
   methods: {
+    nextSlide() {
+      if (this.currentSlide < this.totalSlides - 1) {
+        this.currentSlide += 1;
+      }
+    },
+    prevSlide() {
+      if (this.currentSlide > 0) {
+        this.currentSlide -= 1;
+      }
+    },
+    showPopup() {
+      this.isPopupVisible = true;
+      document.body.style.overflow = "hidden";
+    },
+    closePopup() {
+      this.isPopupVisible = false;
+      document.body.style.overflow = "";
+    },
     openDocument(document) {
       if (document && document.path) {
-        const formattedPath = document.path.replace(/\\/g, "/"); // Ensure path format
+        // Replace backslashes with forward slashes for URLs
+        const formattedPath = document.path.replace(/\\/g, "/");
         this.$router.push({
           name: "DisplayPDF", // Ensure this matches your route name
-          params: {
-            path: formattedPath,
-            title: document.title,
-            author: document.author,
+          params: { 
+            path: formattedPath, 
+            title: document.title, 
+            author: document.author 
           },
         });
       } else {
@@ -89,7 +139,59 @@ export default {
   },
 };
 </script>
+
 <style scoped>
+@import "../../assets/css/Tabs.css";
+.tags {
+  margin-top: 10px;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  /* margin-right: 5px; */
+  margin: 5px;
+  display: inline-block;
+}
+.modal-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  transform: translateZ(0);
+}
+
+.modal-content-popup {
+  background: transparent;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80%;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 @import "../../assets/css/Home.css" p {
   margin-top: 0;
   margin-bottom: 1rem;
