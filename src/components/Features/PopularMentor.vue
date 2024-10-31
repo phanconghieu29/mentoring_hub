@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <a>Xem thêm</a>
+    <router-link to="/mentors">Xem thêm</router-link>
   </div>
 
   <!-- Popup Modal -->
