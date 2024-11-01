@@ -8,56 +8,37 @@
       <div class="slider-wrapper">
         <div class="slider-content" :style="{ transform: `translateX(${currentIndex * -100}%)` }">
           <div class="slide" v-for="(slide, index) in groupedMentors" :key="index">
-            <!-- <div class="flip-card" v-for="mentor in slide" :key="mentor.id">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <div class="image-section">
-                    <img :src="mentor.image" alt="" />
-                  </div>
-                  <div class="text-content">
-                    <span class="name">{{ mentor.name }}</span>
-                    <br>
-                    <span class="position">{{ mentor.position }}</span>
-                  </div>
-                </div>
-                <div class="flip-card-back">
-                  <p>{{ mentor.description }}</p>
-                  <div class="button-container">
-                    <button class="btn btn-infor">Thông tin</button>
-                    <button class="btn btn-infor" @click="connectMentor(mentor)">Kết nối</button>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <MentorCard v-for="mentor in slide" :key="mentor.id" :mentor="mentor" @connect="connectMentor" />
           </div>
         </div>
       </div>
     </div>
     <router-link to="/mentors">Xem thêm</router-link>
+    <PopupModal :show="showPopup" :mentor="selectedMentor" @close="closePopup" />
   </div>
 
   <!-- Popup Modal -->
-  <div v-if="showPopup" class="modal-overlay">
+  <!-- <div v-if="showPopup" class="modal-overlay">
     <div class="modal-content">
       <h3>Gửi lời chào đến {{ selectedMentor.name }}</h3>
       <textarea v-model="greeting" :maxlength="maxGreetingLength * 5"
         placeholder="Nhập lời chào (tối đa 250 từ)..."></textarea>
-      <p>{{ wordCount }} / {{ maxGreetingLength }} từ</p> <!-- Update for word count -->
+      <p>{{ wordCount }} / {{ maxGreetingLength }} từ</p>
       <button class="btn btn-send" @click="sendGreeting">Gửi</button>
       <button class="btn btn-cancel" @click="closePopup">Hủy</button>
     </div>
-  </div>
+  </div> -->
 
 </template>
 
 <script>
 import MentorCard from "./MentorCard.vue";
 import mentorData from '../../assets/data/mentor.json';
+import PopupModal from "./PopupModal.vue";
 
 export default {
   name: "PopularMentor",
-  components: {MentorCard},
+  components: {MentorCard, PopupModal},
   data() {
     return {
       currentIndex: 0,
@@ -167,8 +148,6 @@ export default {
   flex: 0 0 100%;
 }
 
-/* -------------------------------------------------------------------- */
-
 .flip-card {
   background-color: transparent;
   width: calc(25% - 20px);
@@ -177,120 +156,7 @@ export default {
   margin: 10px;
 }
 
-
-/* .flip-card {
-  background-color: transparent;
-  width: calc(25% - 20px);
-  height: 470px;
-  perspective: 1000px;
-  margin: 10px;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  border: 2px solid;
-  border-radius: 5px;
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-}
-
-.flip-card-front {
-  background: white;
-}
-
-.image-section {
-  width: 100%;
-  height: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-img {
-  width: 80%;
-  border-radius: 50%;
-  background: #021a2f;
-}
-
-.text-content {
-  text-align: center;
-  color: black;
-  font-weight: 500;
-}
-
-.flip-card-back {
-  background-color: #222;
-  color: white;
-  transform: rotateY(180deg);
-}
-
-.flip-card-back p {
-  margin-bottom: 20px;
-}
-
-.btn {
-  height: 75px;
-  width: auto;
-  font-size: 15px;
-  font-weight: 500;
-  background: #0cf;
-  color: #222;
-  border: 2px solid #0cf;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.5s;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.btn {
-  flex: 1;
-  margin-bottom: 20px;
-}
-
-.btn-infor:last-child,
-.btn:last-child {
-  margin-right: 0;
-}
-
-.btn:hover {
-  background: #222;
-  color: #0cf;
-  box-shadow: 0 0 10px #0cf;
-} */
-
-/* -------------------------------------------------------------------- */
-
-
-.modal-overlay {
+/* .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -326,5 +192,5 @@ textarea {
 .btn-cancel {
   background: red;
   color: white;
-}
+} */
 </style>
