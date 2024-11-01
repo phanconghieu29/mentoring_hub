@@ -29,6 +29,11 @@ const routes = [
     component: ProfileMentee,
   },
   {
+    path: "/profile-mentee/:id",
+    name: "Profile-mentee",
+    component: ProfileMentee,
+  },
+  {
     path: "/mentors",
     name: "MentorList",
     component: Mentors,

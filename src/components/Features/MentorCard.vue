@@ -14,7 +14,7 @@
       <div class="flip-card-back">
         <p>{{ mentor.description }}</p>
         <div class="button-container">
-          <button class="btn btn-infor">Thông tin</button>
+          <button class="btn btn-infor" @click="viewProfile">Thông tin</button>
           <button class="btn btn-infor" @click="$emit('connect', mentor)">Kết nối</button>
         </div>
       </div>
@@ -28,6 +28,11 @@ export default {
   props: {
     mentor: Object,
   },
+  methods: {
+    viewProfile() {
+      this.$router.push(`/profile-mentee/${this.mentor.id}`);
+    },
+  }
 };
 </script>
 
@@ -68,22 +73,6 @@ export default {
 .flip-card-front {
   background-color: white;
 }
-
-/* .image-section {
-  width: 100%;
-  height: 60%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-img {
-  width: 80%;
-  height: auto;
-  border-radius: 50%;
-  border: 2px solid #0cf;
-} */
 
 .image-section {
   width: 100%;

@@ -105,7 +105,7 @@ export default {
     },
     navigateToMentorList() {
       this.closeTab2Popup(); // Đóng popup trước khi điều hướng
-      this.$router.push({ name: "Login" }); // Thay đổi route theo yêu cầu
+      this.$router.push({ name: "MentorList" }); // Thay đổi route theo yêu cầu
     },
   },
 };

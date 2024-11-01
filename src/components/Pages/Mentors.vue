@@ -17,52 +17,66 @@
       <span>Trang {{ currentPage }} / {{ totalPages }}</span>
       <button @click="nextPage" :disabled="currentPage === totalPages">Trang sau</button>
     </div>
+
+    <!-- Modal Component -->
+    <!-- <PopupModal v-if="showPopup" :mentor="selectedMentor" @close="closePopup" /> -->
+    <PopupModal v-if="showPopup" :show="showPopup" :mentor="selectedMentor" @close="closePopup" />
   </div>
 </template>
 
 <script>
 import MentorCard from "../Features/MentorCard.vue";
-import mentorData from "../../assets/data/mentor.json";
 import MentorFilter from "../Features/MentorFilter.vue";
+import PopupModal from "../Features/PopupModal.vue";
+import mentorData from "../../assets/data/mentor.json";
 
 export default {
   name: "MentorList",
   components: {
     MentorCard,
     MentorFilter,
+    PopupModal, // Register Modal component
   },
   data() {
     return {
       mentors: mentorData,
       currentPage: 1,
-      mentorsPerPage: 16, // Số lượng mentor trên mỗi trang
-      selectedTag: null, // Tag được chọn để lọc
+      mentorsPerPage: 16,
+      selectedTag: null,
+      showPopup: false, // Toggle for popup visibility
+      selectedMentor: null, // Store mentor data for modal
     };
   },
   computed: {
     totalPages() {
-      return Math.ceil(this.filteredMentors.length / this.mentorsPerPage); // Tính số trang tổng
+      return Math.ceil(this.filteredMentors.length / this.mentorsPerPage);
     },
     filteredMentors() {
-      // Lọc danh sách mentor theo tag đã chọn
       if (this.selectedTag) {
         return this.mentors.filter(mentor => mentor.tags.includes(this.selectedTag));
       }
-      return this.mentors; // Trả về tất cả nếu không có tag nào được chọn
+      return this.mentors;
     },
     paginatedMentors() {
       const start = (this.currentPage - 1) * this.mentorsPerPage;
       const end = start + this.mentorsPerPage;
-      return this.filteredMentors.slice(start, end); // Lấy mentor cho trang hiện tại
+      return this.filteredMentors.slice(start, end);
     },
   },
   methods: {
     filterMentorsByTag(tag) {
-      this.selectedTag = tag; // Cập nhật tag đã chọn
-      this.currentPage = 1; // Đặt lại trang hiện tại về 1 khi lọc
+      this.selectedTag = tag;
+      this.currentPage = 1;
     },
     connectMentor(mentor) {
-      alert(`Kết nối với ${mentor.name}`);
+      console.log("Đã nhấn Kết nối cho mentor:", mentor);
+      this.selectedMentor = mentor;
+      this.showPopup = true;
+      console.log("showPopup:", this.showPopup);
+    },
+    closePopup() {
+      this.showPopup = false;
+      this.selectedMentor = null;
     },
     nextPage() {
       if (this.currentPage < this.totalPages) {
@@ -77,6 +91,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .mentor-list {

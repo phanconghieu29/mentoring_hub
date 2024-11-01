@@ -76,8 +76,14 @@ export default {
 <style scoped>
 @import "../../assets/css/Tabs.css";
 
+.mentor-filter {
+  margin-bottom: 2rem;
+}
+
 .tags {
   margin-top: 10px;
+  width: 75vw;
+  margin-bottom: 15px;
 }
 
 .tag {
@@ -130,5 +136,9 @@ export default {
   border: none;
   font-size: 20px;
   cursor: pointer;
+}
+
+.btn-view-more {
+  color: blue;
 }
 </style>
